@@ -7,25 +7,23 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 
 
-var mongodb = require('mongodb');
-var MongoClient = mongodb.MongoClient;
+var http = require ('http');         // For serving a basic web page.
+var mongoose = require ("mongoose"); // The reason for this demo.
 
-var url = 'mongodb://<dbuser>:<dbpassword>@ds161104.mlab.com:61104/heroku_kz5kgqnw'
-
-MongoClient.connect(url, function (err, db) {
-  if (err) {
-    console.log('Unable to connect to the mongoDB server. Error:', err);
-  } else {
-    console.log('Connection established to', url);
-
-    // do some work here with the database.
-
-    //Close connection
-    db.close();
-  }
-});
+var uristring =
+  process.env.MONGOLAB_URI ||
+  process.env.MONGOHQ_URL ||
+  'mongodb://officer:ggbro123@ds161104.mlab.com:61104/heroku_kz5kgqnw';
 
 var app = express();
+
+mongoose.connect(uristring, function (err, res) {
+  if (err) {
+  console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+  } else {
+  console.log ('Succeeded connected to: ' + uristring);
+  }
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
