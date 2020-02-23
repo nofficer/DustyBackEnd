@@ -3,8 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors');
 
 var indexRouter = require('./routes/index');
+
 
 
 var http = require ('http');         // For serving a basic web page.
@@ -16,7 +18,7 @@ var uristring =
   'mongodb://officer:ggbro123@ds161104.mlab.com:61104/heroku_kz5kgqnw';
 
 var app = express();
-
+app.use(cors())
 mongoose.connect(uristring, function (err, res) {
   if (err) {
   console.log ('ERROR connecting to: ' + uristring + '. ' + err);
@@ -42,6 +44,10 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
+
+
+
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -53,6 +59,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(process.env.PORT || 5000)
+
 
 module.exports = app;

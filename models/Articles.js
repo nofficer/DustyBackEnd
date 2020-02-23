@@ -23,6 +23,15 @@ const ArticleSchema = new Schema({
     type: String,
     required: true
   },
+  items: {
+    videos: [String],
+    pics: [String],
+    rating: [String],
+    words: [String],
+    genre: [String],
+    tracks: [String],
+    websites: [String]
+  },
   thadate: {
     type: Date,
     default: Date.now
